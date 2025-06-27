@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Checklist QuintoAndar</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      background-color: #F2F4F7;
+      color: #1A1A1A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      color: #0052CC;
+      margin-bottom: 20px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      text-align: center;
+      margin-bottom: 40px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #F9FAFB;
+      transition: border-color 0.3s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #0052CC;
+    }
+
+    .checklist-box {
+      display: none;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    h3 {
+      color: #0052CC;
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    li:hover {
+      background-color: #E5F0FF;
+    }
+
+    li.checked {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      text-decoration: line-through;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #0052CC;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #003d99;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>✅ Checklists Interativos</h2>
+
+  <div class="form-container">
+    <label for="assunto">Escolha o assunto:</label>
+    <select id="assunto">
+      <option value="">-- Selecione o assunto --</option>
+      <option value="vistoria">Vistoria de Saída</option>
+      <option value="rescisao">Rescisão de Contrato</option>
+    </select>
+
+    <label for="cliente">Escolha o tipo de cliente:</label>
+    <select id="cliente" disabled>
+      <option value="">-- Selecione o cliente --</option>
+      <option value="inquilino">Inquilino</option>
+      <option value="proprietario">Proprietário</option>
+    </select>
+  </div>
+
+  <!-- Checklists -->
+  <div id="checklist-vistoria-inquilino" class="checklist-box">
+    <h3>🏠 Vistoria de Saída - Inquilino</h3>
+    <ul>
+      <li>✔️ Reforçou as condições da vistoria de entrada?</li>
+      <li>✔️ Explicou como funciona o laudo de saída?</li>
+      <li>✔️ Informou o prazo para contestação do laudo?</li>
+      <li>✔️ Orientou sobre a entrega de chaves?</li>
+    </ul>
+    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
+    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+  </div>
+
+  <div id="checklist-vistoria-proprietario" class="checklist-box">
+    <h3>🏠 Vistoria de Saída - Proprietário</h3>
+    <ul>
+      <li>✔️ Explicou o processo de análise do laudo?</li>
+      <li>✔️ Informou sobre prazo de retorno do time técnico?</li>
+      <li>✔️ Esclareceu como é feita a cobrança de reparos?</li>
+    </ul>
+    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
+    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+  </div>
+
+  <div id="checklist-rescisao-inquilino" class="checklist-box">
+    <h3>📄 Rescisão de Contrato - Inquilino</h3>
+    <ul>
+      <li>✔️ Verificou se há multa rescisória?</li>
+      <li>✔️ Informou possibilidades de negociação?</li>
+      <li>✔️ Confirmou os prazos para desocupação?</li>
+      <li>✔️ Orientou sobre entrega conforme condições iniciais?</li>
+    </ul>
+    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
+    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+  </div>
+
+  <div id="checklist-rescisao-proprietario" class="checklist-box">
+    <h3>📄 Rescisão de Contrato - Proprietário</h3>
+    <ul>
+      <li>✔️ Esclareceu responsabilidade sobre prazo legal?</li>
+      <li>✔️ Reforçou a necessidade de aguardar aviso do inquilino?</li>
+      <li>✔️ Explicou o impacto do pedido de rescisão antecipada?</li>
+    </ul>
+    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
+    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+  </div>
+
+  <script>
+    const assuntoSelect = document.getElementById('assunto');
+    const clienteSelect = document.getElementById('cliente');
+
+    const checklists = {
+      'vistoria-inquilino': document.getElementById('checklist-vistoria-inquilino'),
+      'vistoria-proprietario': document.getElementById('checklist-vistoria-proprietario'),
+      'rescisao-inquilino': document.getElementById('checklist-rescisao-inquilino'),
+      'rescisao-proprietario': document.getElementById('checklist-rescisao-proprietario')
+    };
+
+    assuntoSelect.addEventListener('change', () => {
+      clienteSelect.disabled = !assuntoSelect.value;
+      clienteSelect.value = "";
+      esconderTodos();
+    });
+
+    clienteSelect.addEventListener('change', () => {
+      esconderTodos();
+      const chave = `${assuntoSelect.value}-${clienteSelect.value}`;
+      if (checklists[chave]) {
+        checklists[chave].style.display = 'block';
+      }
+    });
+
+    document.querySelectorAll('ul').forEach((ul) => {
+      ul.addEventListener('click', function (e) {
+        if (e.target.tagName === 'LI') {
+          e.target.classList.toggle('checked');
+        }
+      });
+    });
+
+    function limpar(botao) {
+      const items = botao.previousElementSibling.querySelectorAll('li');
+      items.forEach(item => item.classList.remove('checked'));
+    }
+
+    function esconderTodos() {
+      Object.values(checklists).forEach(div => div.style.display = 'none');
+    }
+
+      const endpoint = 'https://script.google.com/macros/s/AKfycbyfzbAKEASU2Vd3TtVblL6fJ3QTfYosrmGVUW_IKmxxErQxFzNVSnqpTzvTShVHpyg/exec';
+
+  function enviarParaPlanilha(botao) {
+    const assunto = document.getElementById('assunto').value;
+    const cliente = document.getElementById('cliente').value;
+    const checklistAtivo = document.querySelector('.checklist-box[style*="block"] ul');
+
+    if (!checklistAtivo) {
+      return alert("Nenhum checklist selecionado.");
+    }
+
+    const itensMarcados = [];
+    checklistAtivo.querySelectorAll('li.checked').forEach(item => {
+      itensMarcados.push(item.textContent.trim());
+    });
+
+    if (itensMarcados.length === 0) {
+      return alert("Nenhum item marcado.");
+    }
+
+    const dados = {
+      assunto,
+      cliente,
+      itensMarcados
+    };
+
+    fetch(endpoint, {
+      method: 'POST',
+      mode: 'no-cors', // necessário para funcionar fora de servidores
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    });
+
+    alert("✅ Enviado para a planilha com sucesso!");
+  }
+  </script>
+
+</body>
+</html>
