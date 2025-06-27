@@ -142,7 +142,7 @@
       <li>✔️ Orientou sobre a entrega de chaves?</li>
     </ul>
     <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
   </div>
 
   <div id="checklist-vistoria-proprietario" class="checklist-box">
@@ -153,7 +153,7 @@
       <li>✔️ Esclareceu como é feita a cobrança de reparos?</li>
     </ul>
     <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
   </div>
 
   <div id="checklist-rescisao-inquilino" class="checklist-box">
@@ -165,7 +165,7 @@
       <li>✔️ Orientou sobre entrega conforme condições iniciais?</li>
     </ul>
     <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
   </div>
 
   <div id="checklist-rescisao-proprietario" class="checklist-box">
@@ -176,7 +176,7 @@
       <li>✔️ Explicou o impacto do pedido de rescisão antecipada?</li>
     </ul>
     <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha(this)">📤 Enviar Respostas</button>
+    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
   </div>
 
   <script>
@@ -221,43 +221,45 @@
       Object.values(checklists).forEach(div => div.style.display = 'none');
     }
 
-      const endpoint = 'https://script.google.com/macros/s/AKfycbyfzbAKEASU2Vd3TtVblL6fJ3QTfYosrmGVUW_IKmxxErQxFzNVSnqpTzvTShVHpyg/exec';
+    const endpoint = 'https://script.google.com/macros/s/SEU-LINK-DO-WEB-APP/exec';
 
-  function enviarParaPlanilha(botao) {
-    const assunto = document.getElementById('assunto').value;
-    const cliente = document.getElementById('cliente').value;
-    const checklistAtivo = document.querySelector('.checklist-box[style*="block"] ul');
+    function enviarParaPlanilha() {
+      const assunto = document.getElementById('assunto').value;
+      const cliente = document.getElementById('cliente').value;
+      const checklistAtivo = document.querySelector('.checklist-box[style*="block"] ul');
+      if (!checklistAtivo) return alert("Nenhum checklist selecionado.");
 
-    if (!checklistAtivo) {
-      return alert("Nenhum checklist selecionado.");
+      const itensMarcados = [];
+      checklistAtivo.querySelectorAll('li.checked').forEach(item => {
+        itensMarcados.push(item.textContent.trim());
+      });
+
+      if (itensMarcados.length === 0) {
+        return alert("Nenhum item marcado.");
+      }
+
+      // Geração do token
+      const segredo = "chave-super-secreta";
+      const token = btoa(segredo + assunto + cliente); // codificação base64
+
+      const dados = {
+        assunto,
+        cliente,
+        itensMarcados,
+        token
+      };
+
+      fetch(endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+      });
+
+      alert("✅ Enviado para a planilha com sucesso!");
     }
-
-    const itensMarcados = [];
-    checklistAtivo.querySelectorAll('li.checked').forEach(item => {
-      itensMarcados.push(item.textContent.trim());
-    });
-
-    if (itensMarcados.length === 0) {
-      return alert("Nenhum item marcado.");
-    }
-
-    const dados = {
-      assunto,
-      cliente,
-      itensMarcados
-    };
-
-    fetch(endpoint, {
-      method: 'POST',
-      mode: 'no-cors', // necessário para funcionar fora de servidores
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(dados)
-    });
-
-    alert("✅ Enviado para a planilha com sucesso!");
-  }
   </script>
 
 </body>
