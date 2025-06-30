@@ -2,265 +2,154 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Checklist QuintoAndar</title>
+  <title>Checklist de Atendimento - Pay</title>
   <style>
     body {
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: Poppins, sans-serif;
       margin: 0;
-      background-color: #F2F4F7;
-      color: #1A1A1A;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
+      padding: 30px;
+      background-color: #1E3A8A;
+      color: #fff;
     }
-
-    h2 {
-      color: #0052CC;
+    h1 {
+      text-align: center;
+      color: #E0E7FF;
       margin-bottom: 20px;
     }
-
-    .form-container {
-      background-color: #fff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      text-align: center;
-      margin-bottom: 40px;
-      max-width: 600px;
-      width: 100%;
+    .checklist, .form {
+      max-width: 700px;
+      margin: auto;
     }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 5px;
+    .item {
+      background: #fff;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       color: #333;
     }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #F9FAFB;
-      transition: border-color 0.3s ease;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #0052CC;
-    }
-
-    .checklist-box {
-      display: none;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      width: 100%;
-      max-width: 700px;
-    }
-
-    h3 {
-      color: #0052CC;
-      margin-top: 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
+    .button-container {
+      text-align: center;
       margin-top: 20px;
     }
-
-    li {
-      background: #fff;
-      margin-bottom: 10px;
-      padding: 14px 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    li:hover {
-      background-color: #E5F0FF;
-    }
-
-    li.checked {
-      background-color: #d1e7dd;
-      color: #0f5132;
-      text-decoration: line-through;
-    }
-
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #0052CC;
+      background-color: #60A5FA;
       color: white;
       border: none;
-      border-radius: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.2s;
     }
-
     button:hover {
-      background-color: #003d99;
+      background-color: #3B82F6;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
+  <h1>Checklist Pay - Chat</h1>
 
-  <h2>✅ Checklists Interativos</h2>
+  <div class="form">
+    <label for="analista">Nome do Analista:</label>
+    <input type="text" id="analista" placeholder="Digite seu nome">
 
-  <div class="form-container">
-    <label for="assunto">Escolha o assunto:</label>
-    <select id="assunto">
-      <option value="">-- Selecione o assunto --</option>
-      <option value="vistoria">Vistoria de Saída</option>
-      <option value="rescisao">Rescisão de Contrato</option>
-    </select>
-
-    <label for="cliente">Escolha o tipo de cliente:</label>
-    <select id="cliente" disabled>
-      <option value="">-- Selecione o cliente --</option>
-      <option value="inquilino">Inquilino</option>
-      <option value="proprietario">Proprietário</option>
-    </select>
+    <label for="ticket">Ticket de Atendimento:</label>
+    <input type="text" id="ticket" placeholder="Digite o número do ticket">
   </div>
 
-  <!-- Checklists -->
-  <div id="checklist-vistoria-inquilino" class="checklist-box">
-    <h3>🏠 Vistoria de Saída - Inquilino</h3>
-    <ul>
-      <li>✔️ Reforçou as condições da vistoria de entrada?</li>
-      <li>✔️ Explicou como funciona o laudo de saída?</li>
-      <li>✔️ Informou o prazo para contestação do laudo?</li>
-      <li>✔️ Orientou sobre a entrega de chaves?</li>
-    </ul>
-    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
-  </div>
+  <div class="checklist" id="checklist"></div>
 
-  <div id="checklist-vistoria-proprietario" class="checklist-box">
-    <h3>🏠 Vistoria de Saída - Proprietário</h3>
-    <ul>
-      <li>✔️ Explicou o processo de análise do laudo?</li>
-      <li>✔️ Informou sobre prazo de retorno do time técnico?</li>
-      <li>✔️ Esclareceu como é feita a cobrança de reparos?</li>
-    </ul>
-    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
-  </div>
-
-  <div id="checklist-rescisao-inquilino" class="checklist-box">
-    <h3>📄 Rescisão de Contrato - Inquilino</h3>
-    <ul>
-      <li>✔️ Verificou se há multa rescisória?</li>
-      <li>✔️ Informou possibilidades de negociação?</li>
-      <li>✔️ Confirmou os prazos para desocupação?</li>
-      <li>✔️ Orientou sobre entrega conforme condições iniciais?</li>
-    </ul>
-    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
-  </div>
-
-  <div id="checklist-rescisao-proprietario" class="checklist-box">
-    <h3>📄 Rescisão de Contrato - Proprietário</h3>
-    <ul>
-      <li>✔️ Esclareceu responsabilidade sobre prazo legal?</li>
-      <li>✔️ Reforçou a necessidade de aguardar aviso do inquilino?</li>
-      <li>✔️ Explicou o impacto do pedido de rescisão antecipada?</li>
-    </ul>
-    <button onclick="limpar(this)">🗑️ Limpar Tudo</button>
-    <button onclick="enviarParaPlanilha()">📤 Enviar Respostas</button>
+  <div class="button-container">
+    <button onclick="enviarChecklist()">Enviar Checklist</button>
+    <button onclick="limparChecklist()">Limpar</button>
   </div>
 
   <script>
-    const assuntoSelect = document.getElementById('assunto');
-    const clienteSelect = document.getElementById('cliente');
+    const checklistItems = [
+      "Atender o cliente em até 20 segundos",
+      "Dar boas vindas ao cliente usando mensagem padrão",
+      "Análise dos registros anteriores",
+      "Confirmação positiva do histórico",
+      "Analisar o cadastro do cliente",
+      "Confirmar endereço do imóvel",
+      "Retornar ao cliente em até 2 minutos",
+      "Direcionar cliente ao App ou Site quando aplicável",
+      "Usar a calculadora da base de conhecimento",
+      "Taguear 100% dos contatos",
+      "Agradecer e recapitular atendimento",
+      "Demonstrar cordialidade e procedimento correto",
+      "Atuar em boleto conforme processo",
+      "Escolher palavras com acolhimento humano",
+      "Registrar no CRM 100% dos contatos",
+      "Resumir atendimento e verificar dúvidas",
+      "Oferecer pesquisa em 100% dos atendimentos"
+    ];
 
-    const checklists = {
-      'vistoria-inquilino': document.getElementById('checklist-vistoria-inquilino'),
-      'vistoria-proprietario': document.getElementById('checklist-vistoria-proprietario'),
-      'rescisao-inquilino': document.getElementById('checklist-rescisao-inquilino'),
-      'rescisao-proprietario': document.getElementById('checklist-rescisao-proprietario')
-    };
+    const checklistContainer = document.getElementById('checklist');
 
-    assuntoSelect.addEventListener('change', () => {
-      clienteSelect.disabled = !assuntoSelect.value;
-      clienteSelect.value = "";
-      esconderTodos();
+    checklistItems.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `<label><input type="checkbox" id="check${index}"> ${item}</label>`;
+      checklistContainer.appendChild(div);
     });
 
-    clienteSelect.addEventListener('change', () => {
-      esconderTodos();
-      const chave = `${assuntoSelect.value}-${clienteSelect.value}`;
-      if (checklists[chave]) {
-        checklists[chave].style.display = 'block';
-      }
-    });
-
-    document.querySelectorAll('ul').forEach((ul) => {
-      ul.addEventListener('click', function (e) {
-        if (e.target.tagName === 'LI') {
-          e.target.classList.toggle('checked');
-        }
+    function limparChecklist() {
+      checklistItems.forEach((_, index) => {
+        document.getElementById(`check${index}`).checked = false;
       });
-    });
-
-    function limpar(botao) {
-      const items = botao.previousElementSibling.querySelectorAll('li');
-      items.forEach(item => item.classList.remove('checked'));
     }
 
-    function esconderTodos() {
-      Object.values(checklists).forEach(div => div.style.display = 'none');
-    }
+    function enviarChecklist() {
+      const analista = document.getElementById('analista').value.trim();
+      const ticket = document.getElementById('ticket').value.trim();
 
-    const endpoint = 'https://script.google.com/macros/s/AKfycbyfzbAKEASU2Vd3TtVblL6fJ3QTfYosrmGVUW_IKmxxErQxFzNVSnqpTzvTShVHpyg/exec';
-
-    function enviarParaPlanilha() {
-      const assunto = document.getElementById('assunto').value;
-      const cliente = document.getElementById('cliente').value;
-      const checklistAtivo = document.querySelector('.checklist-box[style*="block"] ul');
-      if (!checklistAtivo) return alert("Nenhum checklist selecionado.");
-
-      const itensMarcados = [];
-      checklistAtivo.querySelectorAll('li.checked').forEach(item => {
-        itensMarcados.push(item.textContent.trim());
-      });
-
-      if (itensMarcados.length === 0) {
-        return alert("Nenhum item marcado.");
+      if (!analista || !ticket) {
+        alert("Por favor, preencha o nome do analista e o ticket de atendimento.");
+        return;
       }
 
-      // Geração do token
+      const respostas = checklistItems.map((_, index) => document.getElementById(`check${index}`).checked);
+
       const segredo = "chave-super-secreta";
-      const token = btoa(segredo + assunto + cliente); // codificação base64
+      const token = btoa(segredo + ticket + analista);
 
-      const dados = {
-        assunto,
-        cliente,
-        itensMarcados,
-        token
+      const payload = {
+        analista: analista,
+        ticket: ticket,
+        respostas: respostas,
+        token: token
       };
 
-      fetch(endpoint, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
+      fetch("https://script.google.com/macros/s/AKfycbxI-sEYNww18bpcpFWJR23l7lCW31XSIQ4SV6PXJIEy-gQwTY4N3j3vMAxRgpcwsFk/exec", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success' || data.status === 'sucesso') {
+          alert("Checklist enviado com sucesso!");
+          limparChecklist();
+        } else {
+          alert("Erro ao enviar: " + data.message);
+        }
+      })
+      .catch(() => {
+        alert("Erro de conexão. Verifique a URL do Web App e permissões.");
       });
-
-      alert("✅ Enviado para a planilha com sucesso!");
     }
   </script>
-
 </body>
 </html>
