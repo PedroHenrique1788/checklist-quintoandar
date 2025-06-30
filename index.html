@@ -114,6 +114,7 @@
     function enviarChecklist() {
       const analista = document.getElementById('analista').value.trim();
       const ticket = document.getElementById('ticket').value.trim();
+      const endpoint = 'https://script.google.com/macros/s/AKfycbxI-sEYNww18bpcpFWJR23l7lCW31XSIQ4SV6PXJIEy-gQwTY4N3j3vMAxRgpcwsFk/exec';
 
       if (!analista || !ticket) {
         alert("Por favor, preencha o nome do analista e o ticket de atendimento.");
@@ -132,7 +133,7 @@
         token: token
       };
 
-      fetch("https://script.google.com/macros/s/AKfycbxI-sEYNww18bpcpFWJR23l7lCW31XSIQ4SV6PXJIEy-gQwTY4N3j3vMAxRgpcwsFk/exec", {
+      fetch(endpoint, {
         method: "POST",
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" }
